@@ -1,8 +1,8 @@
 create table tor_kreglowy(idtoru int primary key auto_increment);
 create table wyniki(idwynikow int primary key, punkty int unsigned, zbite_kregle_lacznie int unsigned);
 create table kula(idkuli int primary key , rozmiar int unsigned, kolor enum('zielony','czerwony','niebieski','teczowy','zolty'));
-create table rozgrywka(idrozgrywki int primary key auto_increment,czas time,torkreglowy int,foreign key(torkreglowy) references tor_kreglowy(idtoru));
-create table kreglarz(idkreglarza int primary key auto_increment,imie varchar(40), nazwisko varchar(40),wiek int ,wyniki int, kula int , rozgrywka int , foreign key(wyniki) references wyniki(idwynikow), foreign key(kula) references  kula(idkuli), foreign key(rozgrywka) references rozgrywka(idrozgrywki) );
+create table rozgrywka(idrozgrywki int primary key auto_increment,czas time,torkreglowy int);
+create table kreglarz(idkreglarza int primary key auto_increment,imie varchar(40), nazwisko varchar(40),wiek int ,wyniki int, kula int , rozgrywka int);
 
 
 
@@ -39,28 +39,28 @@ insert into kula values (7,10,'niebieski');
 insert into kula values (8,11,'zolty');
 insert into kula values (9,10,'zielony');
 
-insert into rozgrywka (idrozgrywki,czas) values (default,'00:45:30');
-insert into rozgrywka (idrozgrywki,czas) values (default,'00:56:45');
-insert into rozgrywka (idrozgrywki,czas) values (default,'01:00:05');
-insert into rozgrywka (idrozgrywki,czas) values (default,'00:59:47');
+insert into rozgrywka (idrozgrywki,czas) values (default,'00:45:30',2);
+insert into rozgrywka (idrozgrywki,czas) values (default,'00:56:45',3);
+insert into rozgrywka (idrozgrywki,czas) values (default,'01:00:05',4);
+insert into rozgrywka (idrozgrywki,czas) values (default,'00:59:47',1);
 
 
-insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Jerzy','Janowicz',34);
-insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Krzysztof','Rybak',45);
-insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Norbert','Nikiel',25);
-insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Krystian','Jan',23);
-insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Julia','Kreska',27);
-insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Tymon','Kostantin',54);
-insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Kamil','Nuskała',34);
-insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Karolina','Pistacja',28);
-insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Bartosz','Huncwot',26);
-insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Zdzisław','Krzesło',40);
-insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Robert','Natulski',37);
+insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Jerzy','Janowicz',34,1,2,1);
+insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Krzysztof','Rybak',45,2,4,2);
+insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Norbert','Nikiel',25,3,5,1);
+insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Krystian','Jan',23,4,3,2);
+insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Julia','Kreska',27,5,1,1);
+insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Tymon','Kostantin',54,6,9,2);
+insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Kamil','Nuskała',34,7,2,3);
+insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Karolina','Pistacja',28,8,7,1);
+insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Bartosz','Huncwot',26,9,8,3);
+insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Zdzisław','Krzesło',40,10,8,4);
+insert into kreglarz (idkreglarza,imie,nazwisko,wiek) values (default,'Robert','Natulski',37,11,1,4);
 
-
-
-
-
+alter table rozgrywka add foreign key (torkreglowy) references tor_kreglowy(idtoru);
+alter table kreglarz add foreign key (wyniki) references wyniki(idwynikow);
+alter table kreglarz add foreign key (kula) references kula(idkuli);
+alter table kreglarz add foreign key (rozgrywka) references rozgrywka(idrozgrywki);
 
 
 delimiter //
